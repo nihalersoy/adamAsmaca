@@ -24,45 +24,51 @@ public class AdamAsmacaOyunu {
         - Oyuncunun doğru kelimeyi bulması durumunda, tebrik mesajı gösterilmeli ve oyun sonlandırılmalıdır.
         - Oyuncunun kalan hakları sıfır olduğunda, olumsuz bir mesaj ve doğru kelime gösterilmelidir.
         */
-    List<String> fruits = List.of("elma","armut","kiraz","mango","karpuz","kavun","vişne","erik");
-    Random rastgele = new Random();
-    Scanner scan = new Scanner(System.in);
-    int rastgeleIndex = rastgele.nextInt(fruits.size());
-    String rastgeleEleman = fruits.get(rastgeleIndex);
-    ArrayList<String> bos = new ArrayList<>();
-    int can=5;
-    public void soru () {
-        for (int i = 0; i <rastgeleEleman.length(); i++) {
-            bos.add("_");
-        }
+
+    static int can=5;
+
+    public static String rastgeleSec () {
+        List<String> fruits = List.of("elma","armut","kiraz","mango","karpuz","kavun","vişne","erik");
+        Random rastgele = new Random();
+        int rastgeleIndex = rastgele.nextInt(fruits.size());
+        String rastgeleEleman = fruits.get(rastgeleIndex);
+        return rastgeleEleman;
     }
 
-    public void adamAsmaca () {
-        System.out.println(bos);
-        System.out.println("Lütfen bir harf tahmin ediniz:)");
 
+    public static void adamAsmaca ( ) {
+
+        ArrayList<String> bos = new ArrayList<>();
+        for (int i = 0; i <rastgeleSec().length(); i++) {
+            bos.add("_");
+        }
+        System.out.println(bos);
+
+        System.out.println("Lütfen bir harf tahmin ediniz:)");
+        Scanner scan = new Scanner(System.in);
         do {
 
             String tahmin = scan.next().toLowerCase().substring(0,1);
 
-            if (rastgeleEleman.contains(tahmin)){
+            if (rastgeleSec().contains(tahmin)){
                 System.out.println("Doğru tahmin!");
-                bos.set(rastgeleEleman.indexOf(tahmin),tahmin);
+                bos.set(rastgeleSec().indexOf(tahmin),tahmin);
                 System.out.println(bos);
                 String sonuc= String.join("",bos);
-                if (sonuc.equals(rastgeleEleman)){
+                if (sonuc.equals(rastgeleSec())){
                     System.out.println("Tebrikler!!! Oyunu kazandınız!");
                     break;
                 }
             } else {
-                System.out.println("Yanlış tahmin!");
                 can--;
+                System.out.println("Yanlış tahmin! " + can + " hakkınız kaldı.");
             }
 
         }while (can>0);
 
         if (can==0) {
-            System.out.println("Oyunu kaybettiniz! Üzgünüz....:(");
+            System.out.println("Oyunu kaybettiniz! Üzgünüz :( Cevap = "+ rastgeleSec());
+
         }
 
     }
